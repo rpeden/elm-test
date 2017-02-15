@@ -1,0 +1,4 @@
+var _user$project$Test$addThree = F3(
+	function (a, b, c) {
+		return (a + b) + c;
+	});

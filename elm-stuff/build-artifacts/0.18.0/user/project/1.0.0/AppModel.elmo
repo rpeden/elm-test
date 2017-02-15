@@ -1,0 +1,5 @@
+var _user$project$AppModel$model = {count: 0, content: 'hello', thingName: 'thing'};
+var _user$project$AppModel$Model = F3(
+	function (a, b, c) {
+		return {count: a, content: b, thingName: c};
+	});

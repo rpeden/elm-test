@@ -1,0 +1,34 @@
+var _user$project$Interop$sendIncr = _elm_lang$core$Native_Platform.outgoingPort(
+	'sendIncr',
+	function (v) {
+		return null;
+	});
+var _user$project$Interop$recvIncr = _elm_lang$core$Native_Platform.incomingPort(
+	'recvIncr',
+	_elm_lang$core$Json_Decode$null(
+		{ctor: '_Tuple0'}));
+var _user$project$Interop$sendDecr = _elm_lang$core$Native_Platform.outgoingPort(
+	'sendDecr',
+	function (v) {
+		return null;
+	});
+var _user$project$Interop$recvDecr = _elm_lang$core$Native_Platform.incomingPort(
+	'recvDecr',
+	_elm_lang$core$Json_Decode$null(
+		{ctor: '_Tuple0'}));
+var _user$project$Interop$sendRadius = _elm_lang$core$Native_Platform.outgoingPort(
+	'sendRadius',
+	function (v) {
+		return v;
+	});
+var _user$project$Interop$recvRadius = _elm_lang$core$Native_Platform.incomingPort('recvRadius', _elm_lang$core$Json_Decode$int);
+var _user$project$Interop$sendName = _elm_lang$core$Native_Platform.outgoingPort(
+	'sendName',
+	function (v) {
+		return v;
+	});
+var _user$project$Interop$recvName = _elm_lang$core$Native_Platform.incomingPort('recvName', _elm_lang$core$Json_Decode$string);
+var _user$project$Interop$noOp = _elm_lang$core$Native_Platform.incomingPort(
+	'noOp',
+	_elm_lang$core$Json_Decode$null(
+		{ctor: '_Tuple0'}));

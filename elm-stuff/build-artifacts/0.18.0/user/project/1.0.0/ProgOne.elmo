@@ -1,0 +1,793 @@
+var _user$project$ProgOne$asPixels = function (numPixels) {
+	var prependTo = _elm_lang$core$Basics$flip(_elm_lang$core$String$append);
+	return A2(
+		prependTo,
+		'px',
+		_elm_lang$core$Basics$toString(numPixels));
+};
+var _user$project$ProgOne$styledButton = F2(
+	function (attrs, children) {
+		var btnStyle = _elm_lang$html$Html_Attributes$class('btn btn-primary appButton');
+		return A2(
+			_elm_lang$html$Html$button,
+			{ctor: '::', _0: btnStyle, _1: attrs},
+			children);
+	});
+var _user$project$ProgOne$getName = function (animal) {
+	var _p0 = animal;
+	if (_p0.ctor === 'Cat') {
+		return _p0._0;
+	} else {
+		return _p0._0;
+	}
+};
+var _user$project$ProgOne$subs = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{ctor: '[]'});
+};
+var _user$project$ProgOne$miniMeScale = 0.6;
+var _user$project$ProgOne$minify = function (num) {
+	return _elm_lang$core$Basics$round(
+		A2(
+			F2(
+				function (x, y) {
+					return x * y;
+				}),
+			_user$project$ProgOne$miniMeScale,
+			_elm_lang$core$Basics$toFloat(num)));
+};
+var _user$project$ProgOne$normalScale = 1.0;
+var _user$project$ProgOne$regularPanelBodyFontSize = 15;
+var _user$project$ProgOne$regularPanelHeaderFontSize = 20;
+var _user$project$ProgOne$regularPanelHeight = 350;
+var _user$project$ProgOne$miniPanel = function (model) {
+	var body = A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Body text goes here'),
+			_1: {ctor: '[]'}
+		});
+	var bodyStyle = _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'font-size',
+				_1: _user$project$ProgOne$asPixels(
+					_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelBodyFontSize))
+			},
+			_1: {ctor: '[]'}
+		});
+	var headerStyle = _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'font-size',
+					_1: _user$project$ProgOne$asPixels(
+						_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelHeaderFontSize))
+				},
+				_1: {ctor: '[]'}
+			}
+		});
+	var header = A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: headerStyle,
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Header Title'),
+			_1: {ctor: '[]'}
+		});
+	var panelStyle = _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'width',
+				_1: _user$project$ProgOne$asPixels(
+					_user$project$ProgOne$minify(model.panelWidth))
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'border-radius',
+					_1: _user$project$ProgOne$asPixels(
+						_user$project$ProgOne$minify(model.panelBorderRadius))
+				},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: _user$project$ProgOne$asPixels(
+								_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelHeight))
+						},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: panelStyle,
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: header,
+			_1: {
+				ctor: '::',
+				_0: body,
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$ProgOne$pPanel = F2(
+	function (model, scale) {
+		var body = A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Body text goes here'),
+				_1: {ctor: '[]'}
+			});
+		var scaledPixels = function (val) {
+			return _user$project$ProgOne$asPixels(
+				_elm_lang$core$Basics$round(
+					A2(
+						F2(
+							function (x, y) {
+								return x * y;
+							}),
+						scale,
+						_elm_lang$core$Basics$toFloat(val))));
+		};
+		var panelWidth = scaledPixels(model.panelWidth);
+		var panelBorderRadius = scaledPixels(model.panelBorderRadius);
+		var panelHeight = scaledPixels(_user$project$ProgOne$regularPanelHeight);
+		var panelStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'width', _1: panelWidth},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'border-radius', _1: panelBorderRadius},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'height', _1: panelHeight},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			});
+		var headerFontSize = scaledPixels(_user$project$ProgOne$regularPanelHeaderFontSize);
+		var headerStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-size', _1: headerFontSize},
+					_1: {ctor: '[]'}
+				}
+			});
+		var header = A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: headerStyle,
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Header Title'),
+				_1: {ctor: '[]'}
+			});
+		var bodyStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'font-size',
+					_1: scaledPixels(_user$project$ProgOne$regularPanelBodyFontSize)
+				},
+				_1: {ctor: '[]'}
+			});
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: panelStyle,
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: header,
+				_1: {
+					ctor: '::',
+					_0: body,
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$ProgOne$panelMaker = F2(
+	function (model, scale) {
+		var body = A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Body text goes here'),
+				_1: {ctor: '[]'}
+			});
+		var scaledPixels = function (val) {
+			return _user$project$ProgOne$asPixels(
+				_elm_lang$core$Basics$round(
+					A2(
+						F2(
+							function (x, y) {
+								return x * y;
+							}),
+						scale,
+						_elm_lang$core$Basics$toFloat(val))));
+		};
+		var panelWidth = scaledPixels(model.panelWidth);
+		var panelBorderRadius = scaledPixels(model.panelBorderRadius);
+		var panelHeight = scaledPixels(_user$project$ProgOne$regularPanelHeight);
+		var panelStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'animation-name', _1: 'dropHeader'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'animation-iteration-count', _1: '1'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'animation-timing-function', _1: 'ease-in'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'animation-duration', _1: '0.4s'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'width', _1: panelWidth},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'border-radius', _1: panelBorderRadius},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'height', _1: panelHeight},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			});
+		var headerFontSize = scaledPixels(_user$project$ProgOne$regularPanelHeaderFontSize);
+		var headerStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-size', _1: headerFontSize},
+					_1: {ctor: '[]'}
+				}
+			});
+		var header = A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: headerStyle,
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Header Title'),
+				_1: {ctor: '[]'}
+			});
+		var factory = function (_p1) {
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: panelStyle,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('pricePanel'),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: header,
+					_1: {
+						ctor: '::',
+						_0: body,
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		var bodyStyle = _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'font-size',
+					_1: scaledPixels(_user$project$ProgOne$regularPanelBodyFontSize)
+				},
+				_1: {ctor: '[]'}
+			});
+		return factory;
+	});
+var _user$project$ProgOne$regularPanelWidth = 250;
+var _user$project$ProgOne$model = {count: 0, content: 'hello', thingName: 'thing', panelWidth: _user$project$ProgOne$regularPanelWidth, panelBorderRadius: 20, numberOfPanels: 2};
+var _user$project$ProgOne$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {count: a, content: b, thingName: c, panelWidth: d, panelBorderRadius: e, numberOfPanels: f};
+	});
+var _user$project$ProgOne$NoOp = {ctor: 'NoOp'};
+var _user$project$ProgOne$setFocus = function (result) {
+	var _p2 = result;
+	if (_p2.ctor === 'Ok') {
+		return _user$project$ProgOne$NoOp;
+	} else {
+		return _user$project$ProgOne$NoOp;
+	}
+};
+var _user$project$ProgOne$update = F2(
+	function (msg, model) {
+		var _p3 = msg;
+		switch (_p3.ctor) {
+			case 'Increment':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: model.count + 1}),
+					_1: _elm_lang$core$Platform_Cmd$batch(
+						{
+							ctor: '::',
+							_0: _user$project$Interop$sendIncr(
+								{ctor: '_Tuple0'}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$core$Task$attempt,
+									_user$project$ProgOne$setFocus,
+									_elm_lang$dom$Dom$focus('body')),
+								_1: {ctor: '[]'}
+							}
+						})
+				};
+			case 'Decrement':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: model.count - 1}),
+					_1: _user$project$Interop$sendDecr(
+						{ctor: '_Tuple0'})
+				};
+			case 'Change':
+				var _p4 = _p3._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{content: _p4}),
+					_1: _user$project$Interop$sendName(_p4)
+				};
+			case 'ChangeThing':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{thingName: _p3._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'UpdateRadius':
+				var updatedRadius = A2(
+					_elm_lang$core$Maybe$withDefault,
+					0,
+					_elm_lang$core$Result$toMaybe(
+						_elm_lang$core$String$toInt(_p3._0)));
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{panelBorderRadius: updatedRadius}),
+					_1: _user$project$Interop$sendRadius(updatedRadius)
+				};
+			case 'AddPanel':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{numberOfPanels: model.numberOfPanels + 1}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});
+var _user$project$ProgOne$AddPanel = {ctor: 'AddPanel'};
+var _user$project$ProgOne$UpdateRadius = function (a) {
+	return {ctor: 'UpdateRadius', _0: a};
+};
+var _user$project$ProgOne$ChangeThing = function (a) {
+	return {ctor: 'ChangeThing', _0: a};
+};
+var _user$project$ProgOne$thing = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$input,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$value(model.thingName),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$ChangeThing),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('testing'),
+							_1: {ctor: '[]'}
+						},
+						A2(
+							_elm_lang$core$List$map,
+							function (n) {
+								return A2(
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
+										_1: {ctor: '[]'}
+									});
+							},
+							A2(_elm_lang$core$List$range, 1, 4))),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$ProgOne$Change = function (a) {
+	return {ctor: 'Change', _0: a};
+};
+var _user$project$ProgOne$Decrement = {ctor: 'Decrement'};
+var _user$project$ProgOne$Increment = {ctor: 'Increment'};
+var _user$project$ProgOne$buttonPanel = A2(
+	_elm_lang$html$Html$div,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_user$project$ProgOne$styledButton,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Increment),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Increment'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_user$project$ProgOne$styledButton,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Decrement),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Decrement'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_user$project$ProgOne$styledButton,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$AddPanel),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Add Panel'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _user$project$ProgOne$view = function (model) {
+	var miniPanel = A2(_user$project$ProgOne$panelMaker, model, _user$project$ProgOne$miniMeScale);
+	var normalPanel = A2(_user$project$ProgOne$panelMaker, model, _user$project$ProgOne$normalScale);
+	var dog = A2(_user$project$Animals$Dog, 'Otis', 456);
+	var cat = A2(_user$project$Animals$Cat, 'Milo', 123);
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(model)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _user$project$ProgOne$buttonPanel,
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Current count is: ',
+									_elm_lang$core$Basics$toString(model.count))),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$input,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$placeholder('Enter Something'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$Change),
+											_1: {ctor: '[]'}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'Cat is: ',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												_user$project$ProgOne$getName(cat),
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													' and Dog is: ',
+													_user$project$ProgOne$getName(dog))))),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											function (a) {
+												return A2(_elm_lang$core$Basics_ops['++'], 'addThree result is: ', a);
+											}(
+												_elm_lang$core$Basics$toString(
+													A3(_user$project$Test$addThree, 1, 2, 3)))),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: _user$project$ProgOne$thing(model),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Radius:'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$input,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$value(
+																_elm_lang$core$Basics$toString(model.panelBorderRadius)),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$type_('range'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$min('0'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$max('100'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$style(
+																				{
+																					ctor: '::',
+																					_0: {
+																						ctor: '_Tuple2',
+																						_0: 'width',
+																						_1: _user$project$ProgOne$asPixels(250)
+																					},
+																					_1: {ctor: '[]'}
+																				}),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$UpdateRadius),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
+															}
+														},
+														{ctor: '[]'}),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
+												A2(
+													_elm_lang$core$List$map,
+													function (_p5) {
+														return normalPanel(
+															{ctor: '[]'});
+													},
+													A2(_elm_lang$core$List$range, 1, model.numberOfPanels))),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$ProgOne$main = _elm_lang$html$Html$program(
+	{
+		init: {ctor: '_Tuple2', _0: _user$project$ProgOne$model, _1: _elm_lang$core$Platform_Cmd$none},
+		update: _user$project$ProgOne$update,
+		view: _user$project$ProgOne$view,
+		subscriptions: _user$project$ProgOne$subs
+	})();

@@ -1,0 +1,48 @@
+var _user$project$Animals$checkBeingName = function (being) {
+	var _p0 = being;
+	if (_p0.ctor === 'Human') {
+		return _p0._0;
+	} else {
+		return _p0._0;
+	}
+};
+var _user$project$Animals$checkAnimalName = function (animal) {
+	var _p1 = animal;
+	if (_p1.ctor === 'Cat') {
+		return A2(_elm_lang$core$Basics_ops['++'], 'I\'m a cat named ', _p1._0);
+	} else {
+		return A2(_elm_lang$core$Basics_ops['++'], 'I\'m a dog named ', _p1._0);
+	}
+};
+var _user$project$Animals$checkName = function (thing) {
+	var _p2 = thing;
+	if (_p2.ctor === 'Ani') {
+		return _user$project$Animals$checkAnimalName(_p2._0);
+	} else {
+		return _user$project$Animals$checkBeingName(_p2._0);
+	}
+};
+var _user$project$Animals$Dog = F2(
+	function (a, b) {
+		return {ctor: 'Dog', _0: a, _1: b};
+	});
+var _user$project$Animals$dog = A2(_user$project$Animals$Dog, 'Ted', 55);
+var _user$project$Animals$Cat = F2(
+	function (a, b) {
+		return {ctor: 'Cat', _0: a, _1: b};
+	});
+var _user$project$Animals$cat = A2(_user$project$Animals$Cat, 'Norm', 21);
+var _user$project$Animals$Blob = F2(
+	function (a, b) {
+		return {ctor: 'Blob', _0: a, _1: b};
+	});
+var _user$project$Animals$Human = F2(
+	function (a, b) {
+		return {ctor: 'Human', _0: a, _1: b};
+	});
+var _user$project$Animals$Bei = function (a) {
+	return {ctor: 'Bei', _0: a};
+};
+var _user$project$Animals$Ani = function (a) {
+	return {ctor: 'Ani', _0: a};
+};

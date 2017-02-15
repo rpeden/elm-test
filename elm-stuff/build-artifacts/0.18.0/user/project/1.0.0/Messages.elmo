@@ -1,0 +1,48 @@
+var _user$project$Messages$aString = function () {
+	var a = 'I\'m a ';
+	return A2(_elm_lang$core$Basics_ops['++'], a, 'string!');
+}();
+var _user$project$Messages$updateStops = F2(
+	function (model, stopsAction) {
+		var _p0 = stopsAction;
+		if (_p0.ctor === 'Update') {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{stops: _p0._0});
+		} else {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					stops: {ctor: '[]'}
+				});
+		}
+	});
+var _user$project$Messages$update = F2(
+	function (model, action) {
+		var _p1 = action;
+		if (_p1.ctor === 'Stops') {
+			return A2(_user$project$Messages$updateStops, model, _p1._0);
+		} else {
+			return model;
+		}
+	});
+var _user$project$Messages$Model = F2(
+	function (a, b) {
+		return {stops: a, shapes: b};
+	});
+var _user$project$Messages$Clear = {ctor: 'Clear'};
+var _user$project$Messages$Update = function (a) {
+	return {ctor: 'Update', _0: a};
+};
+var _user$project$Messages$UpdateShapes = function (a) {
+	return {ctor: 'UpdateShapes', _0: a};
+};
+var _user$project$Messages$ClearShapes = {ctor: 'ClearShapes'};
+var _user$project$Messages$ShapesClearAction = {ctor: 'ShapesClearAction'};
+var _user$project$Messages$ShapesUpdateAction = {ctor: 'ShapesUpdateAction'};
+var _user$project$Messages$Shapes = function (a) {
+	return {ctor: 'Shapes', _0: a};
+};
+var _user$project$Messages$Stops = function (a) {
+	return {ctor: 'Stops', _0: a};
+};

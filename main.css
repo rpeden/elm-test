@@ -1,0 +1,33 @@
+.testing {
+  font-weight: bold;
+}
+
+.testing2 {
+  font-weight: 400;
+}
+
+@keyframes dropHeader {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+.appPanel {
+  animation-name: dropHeader;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.6s;
+  min-height: 650px;
+}
+
+.appButton {
+  margin-right: 5px;
+}
+
+body {
+  padding-left: 10px;
+  padding-top: 10px;
+}
