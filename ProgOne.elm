@@ -290,7 +290,7 @@ view model =
         buttonPanel,
         div [] [ text ("Current count is: " ++ (model.count |> toString) )],
         div [] [input  [ placeholder "Enter Something", onInput Change] []],
-        div [] [ text ("Cat is: " ++ (getName cat) ++ " and Dog is: " ++ (getName dog))],
+        div [] [ text ("Cat is really: " ++ (getName cat) ++ " and Dog is: " ++ (getName dog))],
         div [] [ text <| (\a -> "addThree result is: " ++ a) <| toString <| addThree 1 2 3 ],
         thing model,
         div [] [

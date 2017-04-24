@@ -9408,7 +9408,7 @@ var _user$project$ProgOne$view = function (model) {
 									_0: _elm_lang$html$Html$text(
 										A2(
 											_elm_lang$core$Basics_ops['++'],
-											'Cat is: ',
+											'Cat is really: ',
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												_user$project$ProgOne$getName(cat),
