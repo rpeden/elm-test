@@ -20,7 +20,8 @@ subs model = Sub.batch [
   recvIncr Incr,
   recvDecr Decr,
   recvName UpdateName,
-  recvRadius UpdateRadius] 
+  recvRadius UpdateRadius
+  ] 
 
 model : Model
 model =
