@@ -60,7 +60,7 @@ update msg model =
 
 
 nameDiv : Model -> (t -> Html msg)
-nameDiv model = 
+nameDiv model =
   \_ -> div [] [model.name |> toString |> append "Name is:" |> text]
 
 view : Model -> Html Msg

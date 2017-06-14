@@ -39,11 +39,16 @@ getName animal =
 
 thing : Model -> Html Msg
 thing model = 
-  div [] 
+  let 
+    things = List.map 
+              (\n -> div [] [text <| "I'm a " ++ model.thingName]) 
+              (List.range 1 4)
+  in
+    div [] 
     [ 
       div [] [text <| "I'm a " ++ model.thingName],
       div [] [input [value model.thingName, onInput ChangeThing] []],
-      div [class "testing"] <| List.map (\n -> div [] [text <| "I'm a " ++ model.thingName]) (List.range 1 4)
+      div [class "testing"] <| things
     ]
 
 view : Model -> Html Msg
@@ -53,12 +58,12 @@ view model =
     dog = Dog "Otis" 54 
   in
     div []
-      [ button [ onClick Decrement ] [ text "-" ],
-        div [] [ text (toString model) ],
-        button [ onClick Increment ] [ text "+" ],
-        div [] [ text ("Current count is: " ++ (model.count |> toString) )],
-        div [] [input  [ placeholder "Enter Something", onInput Change] []],
-        div [] [ text ("Cat is: " ++ (getName cat) ++ " and Dog is: " ++ (getName dog))],
-        div [] [ text <| (\a -> "addThree result is: " ++ a) <| toString <| addThree 1 2 3 ],
-        thing model
-      ]
+    [ button [ onClick Decrement ] [ text "-" ],
+      div [] [ text (toString model) ],
+      button [ onClick Increment ] [ text "+" ],
+      div [] [ text ("Current count is: " ++ (model.count |> toString) )],
+      div [] [input  [ placeholder "Enter Something", onInput Change] []],
+      div [] [ text ("Cat is: " ++ (getName cat) ++ " and Dog is: " ++ (getName dog))],
+      div [] [ text <| (\a -> "addThree result is: " ++ a) <| toString <| addThree 1 2 3 ],
+      thing model
+    ]

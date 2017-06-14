@@ -3741,203 +3741,6 @@ var _elm_lang$core$Result$fromMaybe = F2(
 		}
 	});
 
-var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
-var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
-var _elm_lang$core$Task$spawnCmd = F2(
-	function (router, _p0) {
-		var _p1 = _p0;
-		return _elm_lang$core$Native_Scheduler.spawn(
-			A2(
-				_elm_lang$core$Task$andThen,
-				_elm_lang$core$Platform$sendToApp(router),
-				_p1._0));
-	});
-var _elm_lang$core$Task$fail = _elm_lang$core$Native_Scheduler.fail;
-var _elm_lang$core$Task$mapError = F2(
-	function (convert, task) {
-		return A2(
-			_elm_lang$core$Task$onError,
-			function (_p2) {
-				return _elm_lang$core$Task$fail(
-					convert(_p2));
-			},
-			task);
-	});
-var _elm_lang$core$Task$succeed = _elm_lang$core$Native_Scheduler.succeed;
-var _elm_lang$core$Task$map = F2(
-	function (func, taskA) {
-		return A2(
-			_elm_lang$core$Task$andThen,
-			function (a) {
-				return _elm_lang$core$Task$succeed(
-					func(a));
-			},
-			taskA);
-	});
-var _elm_lang$core$Task$map2 = F3(
-	function (func, taskA, taskB) {
-		return A2(
-			_elm_lang$core$Task$andThen,
-			function (a) {
-				return A2(
-					_elm_lang$core$Task$andThen,
-					function (b) {
-						return _elm_lang$core$Task$succeed(
-							A2(func, a, b));
-					},
-					taskB);
-			},
-			taskA);
-	});
-var _elm_lang$core$Task$map3 = F4(
-	function (func, taskA, taskB, taskC) {
-		return A2(
-			_elm_lang$core$Task$andThen,
-			function (a) {
-				return A2(
-					_elm_lang$core$Task$andThen,
-					function (b) {
-						return A2(
-							_elm_lang$core$Task$andThen,
-							function (c) {
-								return _elm_lang$core$Task$succeed(
-									A3(func, a, b, c));
-							},
-							taskC);
-					},
-					taskB);
-			},
-			taskA);
-	});
-var _elm_lang$core$Task$map4 = F5(
-	function (func, taskA, taskB, taskC, taskD) {
-		return A2(
-			_elm_lang$core$Task$andThen,
-			function (a) {
-				return A2(
-					_elm_lang$core$Task$andThen,
-					function (b) {
-						return A2(
-							_elm_lang$core$Task$andThen,
-							function (c) {
-								return A2(
-									_elm_lang$core$Task$andThen,
-									function (d) {
-										return _elm_lang$core$Task$succeed(
-											A4(func, a, b, c, d));
-									},
-									taskD);
-							},
-							taskC);
-					},
-					taskB);
-			},
-			taskA);
-	});
-var _elm_lang$core$Task$map5 = F6(
-	function (func, taskA, taskB, taskC, taskD, taskE) {
-		return A2(
-			_elm_lang$core$Task$andThen,
-			function (a) {
-				return A2(
-					_elm_lang$core$Task$andThen,
-					function (b) {
-						return A2(
-							_elm_lang$core$Task$andThen,
-							function (c) {
-								return A2(
-									_elm_lang$core$Task$andThen,
-									function (d) {
-										return A2(
-											_elm_lang$core$Task$andThen,
-											function (e) {
-												return _elm_lang$core$Task$succeed(
-													A5(func, a, b, c, d, e));
-											},
-											taskE);
-									},
-									taskD);
-							},
-							taskC);
-					},
-					taskB);
-			},
-			taskA);
-	});
-var _elm_lang$core$Task$sequence = function (tasks) {
-	var _p3 = tasks;
-	if (_p3.ctor === '[]') {
-		return _elm_lang$core$Task$succeed(
-			{ctor: '[]'});
-	} else {
-		return A3(
-			_elm_lang$core$Task$map2,
-			F2(
-				function (x, y) {
-					return {ctor: '::', _0: x, _1: y};
-				}),
-			_p3._0,
-			_elm_lang$core$Task$sequence(_p3._1));
-	}
-};
-var _elm_lang$core$Task$onEffects = F3(
-	function (router, commands, state) {
-		return A2(
-			_elm_lang$core$Task$map,
-			function (_p4) {
-				return {ctor: '_Tuple0'};
-			},
-			_elm_lang$core$Task$sequence(
-				A2(
-					_elm_lang$core$List$map,
-					_elm_lang$core$Task$spawnCmd(router),
-					commands)));
-	});
-var _elm_lang$core$Task$init = _elm_lang$core$Task$succeed(
-	{ctor: '_Tuple0'});
-var _elm_lang$core$Task$onSelfMsg = F3(
-	function (_p7, _p6, _p5) {
-		return _elm_lang$core$Task$succeed(
-			{ctor: '_Tuple0'});
-	});
-var _elm_lang$core$Task$command = _elm_lang$core$Native_Platform.leaf('Task');
-var _elm_lang$core$Task$Perform = function (a) {
-	return {ctor: 'Perform', _0: a};
-};
-var _elm_lang$core$Task$perform = F2(
-	function (toMessage, task) {
-		return _elm_lang$core$Task$command(
-			_elm_lang$core$Task$Perform(
-				A2(_elm_lang$core$Task$map, toMessage, task)));
-	});
-var _elm_lang$core$Task$attempt = F2(
-	function (resultToMessage, task) {
-		return _elm_lang$core$Task$command(
-			_elm_lang$core$Task$Perform(
-				A2(
-					_elm_lang$core$Task$onError,
-					function (_p8) {
-						return _elm_lang$core$Task$succeed(
-							resultToMessage(
-								_elm_lang$core$Result$Err(_p8)));
-					},
-					A2(
-						_elm_lang$core$Task$andThen,
-						function (_p9) {
-							return _elm_lang$core$Task$succeed(
-								resultToMessage(
-									_elm_lang$core$Result$Ok(_p9)));
-						},
-						task))));
-	});
-var _elm_lang$core$Task$cmdMap = F2(
-	function (tagger, _p10) {
-		var _p11 = _p10;
-		return _elm_lang$core$Task$Perform(
-			A2(_elm_lang$core$Task$map, tagger, _p11._0));
-	});
-_elm_lang$core$Native_Platform.effectManagers['Task'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Task$init, onEffects: _elm_lang$core$Task$onEffects, onSelfMsg: _elm_lang$core$Task$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Task$cmdMap};
-
 //import Native.Utils //
 
 var _elm_lang$core$Native_Debug = function() {
@@ -5948,195 +5751,6 @@ var _elm_lang$core$Tuple$second = function (_p4) {
 var _elm_lang$core$Tuple$first = function (_p6) {
 	var _p7 = _p6;
 	return _p7._0;
-};
-
-var _elm_lang$dom$Native_Dom = function() {
-
-var fakeNode = {
-	addEventListener: function() {},
-	removeEventListener: function() {}
-};
-
-var onDocument = on(typeof document !== 'undefined' ? document : fakeNode);
-var onWindow = on(typeof window !== 'undefined' ? window : fakeNode);
-
-function on(node)
-{
-	return function(eventName, decoder, toTask)
-	{
-		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-
-			function performTask(event)
-			{
-				var result = A2(_elm_lang$core$Json_Decode$decodeValue, decoder, event);
-				if (result.ctor === 'Ok')
-				{
-					_elm_lang$core$Native_Scheduler.rawSpawn(toTask(result._0));
-				}
-			}
-
-			node.addEventListener(eventName, performTask);
-
-			return function()
-			{
-				node.removeEventListener(eventName, performTask);
-			};
-		});
-	};
-}
-
-var rAF = typeof requestAnimationFrame !== 'undefined'
-	? requestAnimationFrame
-	: function(callback) { callback(); };
-
-function withNode(id, doStuff)
-{
-	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
-	{
-		rAF(function()
-		{
-			var node = document.getElementById(id);
-			if (node === null)
-			{
-				callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NotFound', _0: id }));
-				return;
-			}
-			callback(_elm_lang$core$Native_Scheduler.succeed(doStuff(node)));
-		});
-	});
-}
-
-
-// FOCUS
-
-function focus(id)
-{
-	return withNode(id, function(node) {
-		node.focus();
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-function blur(id)
-{
-	return withNode(id, function(node) {
-		node.blur();
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-
-// SCROLLING
-
-function getScrollTop(id)
-{
-	return withNode(id, function(node) {
-		return node.scrollTop;
-	});
-}
-
-function setScrollTop(id, desiredScrollTop)
-{
-	return withNode(id, function(node) {
-		node.scrollTop = desiredScrollTop;
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-function toBottom(id)
-{
-	return withNode(id, function(node) {
-		node.scrollTop = node.scrollHeight;
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-function getScrollLeft(id)
-{
-	return withNode(id, function(node) {
-		return node.scrollLeft;
-	});
-}
-
-function setScrollLeft(id, desiredScrollLeft)
-{
-	return withNode(id, function(node) {
-		node.scrollLeft = desiredScrollLeft;
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-function toRight(id)
-{
-	return withNode(id, function(node) {
-		node.scrollLeft = node.scrollWidth;
-		return _elm_lang$core$Native_Utils.Tuple0;
-	});
-}
-
-
-// SIZE
-
-function width(options, id)
-{
-	return withNode(id, function(node) {
-		switch (options.ctor)
-		{
-			case 'Content':
-				return node.scrollWidth;
-			case 'VisibleContent':
-				return node.clientWidth;
-			case 'VisibleContentWithBorders':
-				return node.offsetWidth;
-			case 'VisibleContentWithBordersAndMargins':
-				var rect = node.getBoundingClientRect();
-				return rect.right - rect.left;
-		}
-	});
-}
-
-function height(options, id)
-{
-	return withNode(id, function(node) {
-		switch (options.ctor)
-		{
-			case 'Content':
-				return node.scrollHeight;
-			case 'VisibleContent':
-				return node.clientHeight;
-			case 'VisibleContentWithBorders':
-				return node.offsetHeight;
-			case 'VisibleContentWithBordersAndMargins':
-				var rect = node.getBoundingClientRect();
-				return rect.bottom - rect.top;
-		}
-	});
-}
-
-return {
-	onDocument: F3(onDocument),
-	onWindow: F3(onWindow),
-
-	focus: focus,
-	blur: blur,
-
-	getScrollTop: getScrollTop,
-	setScrollTop: F2(setScrollTop),
-	getScrollLeft: getScrollLeft,
-	setScrollLeft: F2(setScrollLeft),
-	toBottom: toBottom,
-	toRight: toRight,
-
-	height: F2(height),
-	width: F2(width)
-};
-
-}();
-
-var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
-var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
-var _elm_lang$dom$Dom$NotFound = function (a) {
-	return {ctor: 'NotFound', _0: a};
 };
 
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
@@ -8691,62 +8305,18 @@ var _user$project$Animals$Ani = function (a) {
 	return {ctor: 'Ani', _0: a};
 };
 
-var _user$project$Interop$sendIncr = _elm_lang$core$Native_Platform.outgoingPort(
-	'sendIncr',
-	function (v) {
-		return null;
+var _user$project$AppModel$model = {count: 0, content: 'hello', thingName: 'thing'};
+var _user$project$AppModel$Model = F3(
+	function (a, b, c) {
+		return {count: a, content: b, thingName: c};
 	});
-var _user$project$Interop$recvIncr = _elm_lang$core$Native_Platform.incomingPort(
-	'recvIncr',
-	_elm_lang$core$Json_Decode$null(
-		{ctor: '_Tuple0'}));
-var _user$project$Interop$sendDecr = _elm_lang$core$Native_Platform.outgoingPort(
-	'sendDecr',
-	function (v) {
-		return null;
-	});
-var _user$project$Interop$recvDecr = _elm_lang$core$Native_Platform.incomingPort(
-	'recvDecr',
-	_elm_lang$core$Json_Decode$null(
-		{ctor: '_Tuple0'}));
-var _user$project$Interop$sendRadius = _elm_lang$core$Native_Platform.outgoingPort(
-	'sendRadius',
-	function (v) {
-		return v;
-	});
-var _user$project$Interop$recvRadius = _elm_lang$core$Native_Platform.incomingPort('recvRadius', _elm_lang$core$Json_Decode$int);
-var _user$project$Interop$sendName = _elm_lang$core$Native_Platform.outgoingPort(
-	'sendName',
-	function (v) {
-		return v;
-	});
-var _user$project$Interop$recvName = _elm_lang$core$Native_Platform.incomingPort('recvName', _elm_lang$core$Json_Decode$string);
-var _user$project$Interop$noOp = _elm_lang$core$Native_Platform.incomingPort(
-	'noOp',
-	_elm_lang$core$Json_Decode$null(
-		{ctor: '_Tuple0'}));
 
 var _user$project$Test$addThree = F3(
 	function (a, b, c) {
 		return (a + b) + c;
 	});
 
-var _user$project$ProgOne$asPixels = function (numPixels) {
-	var prependTo = _elm_lang$core$Basics$flip(_elm_lang$core$String$append);
-	return A2(
-		prependTo,
-		'px',
-		_elm_lang$core$Basics$toString(numPixels));
-};
-var _user$project$ProgOne$styledButton = F2(
-	function (attrs, children) {
-		var btnStyle = _elm_lang$html$Html_Attributes$class('btn btn-primary appButton');
-		return A2(
-			_elm_lang$html$Html$button,
-			{ctor: '::', _0: btnStyle, _1: attrs},
-			children);
-	});
-var _user$project$ProgOne$getName = function (animal) {
+var _user$project$Main$getName = function (animal) {
 	var _p0 = animal;
 	if (_p0.ctor === 'Cat') {
 		return _p0._0;
@@ -8754,479 +8324,46 @@ var _user$project$ProgOne$getName = function (animal) {
 		return _p0._0;
 	}
 };
-var _user$project$ProgOne$subs = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{ctor: '[]'});
-};
-var _user$project$ProgOne$miniMeScale = 0.6;
-var _user$project$ProgOne$minify = function (num) {
-	return _elm_lang$core$Basics$round(
-		A2(
-			F2(
-				function (x, y) {
-					return x * y;
-				}),
-			_user$project$ProgOne$miniMeScale,
-			_elm_lang$core$Basics$toFloat(num)));
-};
-var _user$project$ProgOne$normalScale = 1.0;
-var _user$project$ProgOne$regularPanelBodyFontSize = 15;
-var _user$project$ProgOne$regularPanelHeaderFontSize = 20;
-var _user$project$ProgOne$regularPanelHeight = 350;
-var _user$project$ProgOne$miniPanel = function (model) {
-	var body = A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('Body text goes here'),
-			_1: {ctor: '[]'}
-		});
-	var bodyStyle = _elm_lang$html$Html_Attributes$style(
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'font-size',
-				_1: _user$project$ProgOne$asPixels(
-					_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelBodyFontSize))
-			},
-			_1: {ctor: '[]'}
-		});
-	var headerStyle = _elm_lang$html$Html_Attributes$style(
-		{
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'font-size',
-					_1: _user$project$ProgOne$asPixels(
-						_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelHeaderFontSize))
-				},
-				_1: {ctor: '[]'}
-			}
-		});
-	var header = A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: headerStyle,
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('Header Title'),
-			_1: {ctor: '[]'}
-		});
-	var panelStyle = _elm_lang$html$Html_Attributes$style(
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'width',
-				_1: _user$project$ProgOne$asPixels(
-					_user$project$ProgOne$minify(model.panelWidth))
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'border-radius',
-					_1: _user$project$ProgOne$asPixels(
-						_user$project$ProgOne$minify(model.panelBorderRadius))
-				},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
-					_1: {
-						ctor: '::',
-						_0: {
-							ctor: '_Tuple2',
-							_0: 'height',
-							_1: _user$project$ProgOne$asPixels(
-								_user$project$ProgOne$minify(_user$project$ProgOne$regularPanelHeight))
-						},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: panelStyle,
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: header,
-			_1: {
-				ctor: '::',
-				_0: body,
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$ProgOne$pPanel = F2(
-	function (model, scale) {
-		var body = A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Body text goes here'),
-				_1: {ctor: '[]'}
-			});
-		var scaledPixels = function (val) {
-			return _user$project$ProgOne$asPixels(
-				_elm_lang$core$Basics$round(
-					A2(
-						F2(
-							function (x, y) {
-								return x * y;
-							}),
-						scale,
-						_elm_lang$core$Basics$toFloat(val))));
-		};
-		var panelWidth = scaledPixels(model.panelWidth);
-		var panelBorderRadius = scaledPixels(model.panelBorderRadius);
-		var panelHeight = scaledPixels(_user$project$ProgOne$regularPanelHeight);
-		var panelStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'width', _1: panelWidth},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'border-radius', _1: panelBorderRadius},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'height', _1: panelHeight},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-										_1: {
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			});
-		var headerFontSize = scaledPixels(_user$project$ProgOne$regularPanelHeaderFontSize);
-		var headerStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'font-size', _1: headerFontSize},
-					_1: {ctor: '[]'}
-				}
-			});
-		var header = A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: headerStyle,
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Header Title'),
-				_1: {ctor: '[]'}
-			});
-		var bodyStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'font-size',
-					_1: scaledPixels(_user$project$ProgOne$regularPanelBodyFontSize)
-				},
-				_1: {ctor: '[]'}
-			});
-		return A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: panelStyle,
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: header,
-				_1: {
-					ctor: '::',
-					_0: body,
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$ProgOne$panelMaker = F2(
-	function (model, scale) {
-		var body = A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Body text goes here'),
-				_1: {ctor: '[]'}
-			});
-		var scaledPixels = function (val) {
-			return _user$project$ProgOne$asPixels(
-				_elm_lang$core$Basics$round(
-					A2(
-						F2(
-							function (x, y) {
-								return x * y;
-							}),
-						scale,
-						_elm_lang$core$Basics$toFloat(val))));
-		};
-		var panelWidth = scaledPixels(model.panelWidth);
-		var panelBorderRadius = scaledPixels(model.panelBorderRadius);
-		var panelHeight = scaledPixels(_user$project$ProgOne$regularPanelHeight);
-		var panelStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'animation-name', _1: 'dropHeader'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'animation-iteration-count', _1: '1'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'animation-timing-function', _1: 'ease-in'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'animation-duration', _1: '0.4s'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'width', _1: panelWidth},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'border-radius', _1: panelBorderRadius},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
-										_1: {
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'height', _1: panelHeight},
-											_1: {
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
-												_1: {
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 10px 10px 10px'},
-													_1: {
-														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-														_1: {
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
-															_1: {ctor: '[]'}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			});
-		var headerFontSize = scaledPixels(_user$project$ProgOne$regularPanelHeaderFontSize);
-		var headerStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#8eb9ff'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'font-size', _1: headerFontSize},
-					_1: {ctor: '[]'}
-				}
-			});
-		var header = A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: headerStyle,
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Header Title'),
-				_1: {ctor: '[]'}
-			});
-		var factory = function (_p1) {
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: panelStyle,
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('pricePanel'),
-						_1: {ctor: '[]'}
-					}
-				},
-				{
-					ctor: '::',
-					_0: header,
-					_1: {
-						ctor: '::',
-						_0: body,
-						_1: {ctor: '[]'}
-					}
-				});
-		};
-		var bodyStyle = _elm_lang$html$Html_Attributes$style(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'font-size',
-					_1: scaledPixels(_user$project$ProgOne$regularPanelBodyFontSize)
-				},
-				_1: {ctor: '[]'}
-			});
-		return factory;
-	});
-var _user$project$ProgOne$regularPanelWidth = 250;
-var _user$project$ProgOne$model = {count: 0, content: 'hello', thingName: 'thing', panelWidth: _user$project$ProgOne$regularPanelWidth, panelBorderRadius: 20, numberOfPanels: 2};
-var _user$project$ProgOne$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {count: a, content: b, thingName: c, panelWidth: d, panelBorderRadius: e, numberOfPanels: f};
-	});
-var _user$project$ProgOne$NoOp = {ctor: 'NoOp'};
-var _user$project$ProgOne$setFocus = function (result) {
-	var _p2 = result;
-	if (_p2.ctor === 'Ok') {
-		return _user$project$ProgOne$NoOp;
-	} else {
-		return _user$project$ProgOne$NoOp;
-	}
-};
-var _user$project$ProgOne$update = F2(
+var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p3 = msg;
-		switch (_p3.ctor) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
 			case 'Increment':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count + 1}),
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$core$Task$attempt,
-							function (_p4) {
-								return _user$project$ProgOne$NoOp;
-							},
-							_elm_lang$dom$Dom$blur('incr-btn')),
-						_1: {ctor: '[]'}
-					});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{count: model.count + 1});
 			case 'Decrement':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count - 1}),
-					_1: _user$project$Interop$sendDecr(
-						{ctor: '_Tuple0'})
-				};
-			case 'ResetPanels':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{numberOfPanels: 2}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{count: model.count - 1});
 			case 'Change':
-				var _p5 = _p3._0;
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{content: _p5}),
-					_1: _user$project$Interop$sendName(_p5)
-				};
-			case 'ChangeThing':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{thingName: _p3._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'UpdateRadius':
-				var updatedRadius = A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					_elm_lang$core$Result$toMaybe(
-						_elm_lang$core$String$toInt(_p3._0)));
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{panelBorderRadius: updatedRadius}),
-					_1: _user$project$Interop$sendRadius(updatedRadius)
-				};
-			case 'AddPanel':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{numberOfPanels: model.numberOfPanels + 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{content: _p1._0});
 			default:
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{thingName: _p1._0});
 		}
 	});
-var _user$project$ProgOne$AddPanel = {ctor: 'AddPanel'};
-var _user$project$ProgOne$UpdateRadius = function (a) {
-	return {ctor: 'UpdateRadius', _0: a};
-};
-var _user$project$ProgOne$ChangeThing = function (a) {
+var _user$project$Main$ChangeThing = function (a) {
 	return {ctor: 'ChangeThing', _0: a};
 };
-var _user$project$ProgOne$thing = function (model) {
+var _user$project$Main$thing = function (model) {
+	var things = A2(
+		_elm_lang$core$List$map,
+		function (n) {
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
+					_1: {ctor: '[]'}
+				});
+		},
+		A2(_elm_lang$core$List$range, 1, 4));
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
@@ -9255,7 +8392,7 @@ var _user$project$ProgOne$thing = function (model) {
 								_0: _elm_lang$html$Html_Attributes$value(model.thingName),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$ChangeThing),
+									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeThing),
 									_1: {ctor: '[]'}
 								}
 							},
@@ -9271,103 +8408,19 @@ var _user$project$ProgOne$thing = function (model) {
 							_0: _elm_lang$html$Html_Attributes$class('testing'),
 							_1: {ctor: '[]'}
 						},
-						A2(
-							_elm_lang$core$List$map,
-							function (n) {
-								return A2(
-									_elm_lang$html$Html$div,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
-										_1: {ctor: '[]'}
-									});
-							},
-							A2(_elm_lang$core$List$range, 1, 4))),
+						things),
 					_1: {ctor: '[]'}
 				}
 			}
 		});
 };
-var _user$project$ProgOne$Change = function (a) {
+var _user$project$Main$Change = function (a) {
 	return {ctor: 'Change', _0: a};
 };
-var _user$project$ProgOne$ResetPanels = {ctor: 'ResetPanels'};
-var _user$project$ProgOne$Decrement = {ctor: 'Decrement'};
-var _user$project$ProgOne$Increment = {ctor: 'Increment'};
-var _user$project$ProgOne$buttonPanel = A2(
-	_elm_lang$html$Html$div,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: A2(
-			_user$project$ProgOne$styledButton,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$id('incr-btn'),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Increment),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Increment'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_user$project$ProgOne$styledButton,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Decrement),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Decrement'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_user$project$ProgOne$styledButton,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$AddPanel),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Add Panel'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_user$project$ProgOne$styledButton,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$ResetPanels),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Reset Panels'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	});
-var _user$project$ProgOne$view = function (model) {
-	var miniPanel = A2(_user$project$ProgOne$panelMaker, model, _user$project$ProgOne$miniMeScale);
-	var normalPanel = A2(_user$project$ProgOne$panelMaker, model, _user$project$ProgOne$normalScale);
-	var dog = A2(_user$project$Animals$Dog, 'Otis', 456);
+var _user$project$Main$Decrement = {ctor: 'Decrement'};
+var _user$project$Main$Increment = {ctor: 'Increment'};
+var _user$project$Main$view = function (model) {
+	var dog = A2(_user$project$Animals$Dog, 'Otis', 54);
 	var cat = A2(_user$project$Animals$Cat, 'Milo', 123);
 	return A2(
 		_elm_lang$html$Html$div,
@@ -9375,206 +8428,15 @@ var _user$project$ProgOne$view = function (model) {
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
+				_elm_lang$html$Html$button,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(model)),
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Decrement),
 					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _user$project$ProgOne$buttonPanel,
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'Current count is: ',
-									_elm_lang$core$Basics$toString(model.count))),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$input,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$placeholder('Enter Something'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$Change),
-											_1: {ctor: '[]'}
-										}
-									},
-									{ctor: '[]'}),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text(
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'Cat is really: ',
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												_user$project$ProgOne$getName(cat),
-												A2(
-													_elm_lang$core$Basics_ops['++'],
-													' and Dog is: ',
-													_user$project$ProgOne$getName(dog))))),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											function (a) {
-												return A2(_elm_lang$core$Basics_ops['++'], 'addThree result is: ', a);
-											}(
-												_elm_lang$core$Basics$toString(
-													A3(_user$project$Test$addThree, 1, 2, 3)))),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: _user$project$ProgOne$thing(model),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$div,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Radius:'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$input,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$value(
-																_elm_lang$core$Basics$toString(model.panelBorderRadius)),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$type_('range'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$min('0'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$max('100'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Attributes$style(
-																				{
-																					ctor: '::',
-																					_0: {
-																						ctor: '_Tuple2',
-																						_0: 'width',
-																						_1: _user$project$ProgOne$asPixels(250)
-																					},
-																					_1: {ctor: '[]'}
-																				}),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$html$Html_Events$onInput(_user$project$ProgOne$UpdateRadius),
-																				_1: {ctor: '[]'}
-																			}
-																		}
-																	}
-																}
-															}
-														},
-														{ctor: '[]'}),
-													_1: {ctor: '[]'}
-												}
-											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$div,
-												{ctor: '[]'},
-												A2(
-													_elm_lang$core$List$map,
-													function (_p6) {
-														return normalPanel(
-															{ctor: '[]'});
-													},
-													A2(_elm_lang$core$List$range, 1, model.numberOfPanels))),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-};
-var _user$project$ProgOne$main = _elm_lang$html$Html$program(
-	{
-		init: {ctor: '_Tuple2', _0: _user$project$ProgOne$model, _1: _elm_lang$core$Platform_Cmd$none},
-		update: _user$project$ProgOne$update,
-		view: _user$project$ProgOne$view,
-		subscriptions: _user$project$ProgOne$subs
-	})();
-
-var _user$project$ProgTwo$nameDiv = F2(
-	function (model, _p0) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					A2(
-						_elm_lang$core$String$append,
-						'Name is:',
-						_elm_lang$core$Basics$toString(model.name))),
-				_1: {ctor: '[]'}
-			});
-	});
-var _user$project$ProgTwo$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h3,
-				{ctor: '[]'},
+				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('second module'),
+					_0: _elm_lang$html$Html$text('-'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9585,24 +8447,21 @@ var _user$project$ProgTwo$view = function (model) {
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html$text(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'Count is: ',
-								_elm_lang$core$Basics$toString(model.count))),
+							_elm_lang$core$Basics$toString(model)),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$div,
-						{ctor: '[]'},
+						_elm_lang$html$Html$button,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'Radius is: ',
-									_elm_lang$core$Basics$toString(model.panelRadius))),
+							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Increment),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('+'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -9610,125 +8469,91 @@ var _user$project$ProgTwo$view = function (model) {
 						_0: A2(
 							_elm_lang$html$Html$div,
 							{ctor: '[]'},
-							A2(
-								_elm_lang$core$List$map,
-								_user$project$ProgTwo$nameDiv(model),
-								A2(_elm_lang$core$List$range, 1, 1))),
-						_1: {ctor: '[]'}
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'Current count is: ',
+										_elm_lang$core$Basics$toString(model.count))),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$input,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$placeholder('Enter Something'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Change),
+												_1: {ctor: '[]'}
+											}
+										},
+										{ctor: '[]'}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'Cat is: ',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													_user$project$Main$getName(cat),
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														' and Dog is: ',
+														_user$project$Main$getName(dog))))),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(
+												function (a) {
+													return A2(_elm_lang$core$Basics_ops['++'], 'addThree result is: ', a);
+												}(
+													_elm_lang$core$Basics$toString(
+														A3(_user$project$Test$addThree, 1, 2, 3)))),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _user$project$Main$thing(model),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 		});
 };
-var _user$project$ProgTwo$update = F2(
-	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
-			case 'Increment':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count + 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Decrement':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count - 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Incr':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count + 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Decr':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{count: model.count - 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'UpdateName':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{name: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{panelRadius: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-		}
-	});
-var _user$project$ProgTwo$model = {count: 0, name: '', panelRadius: 0};
-var _user$project$ProgTwo$Model = F3(
-	function (a, b, c) {
-		return {count: a, name: b, panelRadius: c};
-	});
-var _user$project$ProgTwo$UpdateRadius = function (a) {
-	return {ctor: 'UpdateRadius', _0: a};
-};
-var _user$project$ProgTwo$UpdateName = function (a) {
-	return {ctor: 'UpdateName', _0: a};
-};
-var _user$project$ProgTwo$Decr = function (a) {
-	return {ctor: 'Decr', _0: a};
-};
-var _user$project$ProgTwo$Incr = function (a) {
-	return {ctor: 'Incr', _0: a};
-};
-var _user$project$ProgTwo$subs = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{
-			ctor: '::',
-			_0: _user$project$Interop$recvIncr(_user$project$ProgTwo$Incr),
-			_1: {
-				ctor: '::',
-				_0: _user$project$Interop$recvDecr(_user$project$ProgTwo$Decr),
-				_1: {
-					ctor: '::',
-					_0: _user$project$Interop$recvName(_user$project$ProgTwo$UpdateName),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Interop$recvRadius(_user$project$ProgTwo$UpdateRadius),
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		});
-};
-var _user$project$ProgTwo$main = _elm_lang$html$Html$program(
-	{
-		init: {ctor: '_Tuple2', _0: _user$project$ProgTwo$model, _1: _elm_lang$core$Platform_Cmd$none},
-		update: _user$project$ProgTwo$update,
-		view: _user$project$ProgTwo$view,
-		subscriptions: _user$project$ProgTwo$subs
-	})();
-var _user$project$ProgTwo$Decrement = {ctor: 'Decrement'};
-var _user$project$ProgTwo$Increment = {ctor: 'Increment'};
+var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _user$project$AppModel$model, view: _user$project$Main$view, update: _user$project$Main$update})();
 
 var Elm = {};
-Elm['ProgOne'] = Elm['ProgOne'] || {};
-if (typeof _user$project$ProgOne$main !== 'undefined') {
-    _user$project$ProgOne$main(Elm['ProgOne'], 'ProgOne', undefined);
-}
-Elm['ProgTwo'] = Elm['ProgTwo'] || {};
-if (typeof _user$project$ProgTwo$main !== 'undefined') {
-    _user$project$ProgTwo$main(Elm['ProgTwo'], 'ProgTwo', undefined);
+Elm['Main'] = Elm['Main'] || {};
+if (typeof _user$project$Main$main !== 'undefined') {
+    _user$project$Main$main(Elm['Main'], 'Main', undefined);
 }
 
 if (typeof define === "function" && define['amd'])

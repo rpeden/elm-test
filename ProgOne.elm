@@ -59,29 +59,41 @@ model =
 subs : Model -> Sub msg 
 subs model = Sub.batch []
 
-type Msg = Increment 
+type Msg = 
+      Increment 
     | Decrement 
+    | ResetPanels
     | Change String 
     | ChangeThing String 
     | UpdateRadius String
     | AddPanel
     | NoOp
 
-
 setFocus : Result Dom.Error () -> Msg
 setFocus result = case result of
   Ok _  -> NoOp
   Err _ -> NoOp
 
+blur : String -> Cmd Msg
+blur id = 
+  Task.attempt (\_ -> NoOp) (Dom.blur id)
+
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Increment ->
-      ({ model | count = model.count + 1 }, 
-      (Cmd.batch [sendIncr (), Task.attempt setFocus (Dom.focus "body")]))
+      ({ model | count = model.count + 1 },
+      (Cmd.batch [sendIncr (), blur "incr-button"]))
+      -- also works as shorthand
+      -- { model | count = model.count + 1 } ! 
+      -- [ sendIncr(), blur "incr-button" ]
+
      
     Decrement ->
       ({ model | count = model.count - 1 }, sendDecr ())
+
+    ResetPanels ->
+      ({ model | numberOfPanels = 2 }, Cmd.none)
 
     Change newContent -> 
       ({ model | content = newContent }, sendName newContent)
@@ -128,9 +140,10 @@ styledButton attrs children =
 buttonPanel : Html Msg 
 buttonPanel = 
   div [] [
-    styledButton [ onClick Increment ] [ text "Increment" ],
-    styledButton [ onClick Decrement ] [ text "Decrement" ],
-    styledButton [ onClick AddPanel  ] [ text "Add Panel" ]
+    styledButton [ id "incr-btn", onClick Increment ] [ text "Increment" ],
+    styledButton [ onClick Decrement   ] [ text "Decrement" ],
+    styledButton [ onClick AddPanel    ] [ text "Add Panel" ],
+    styledButton [ onClick ResetPanels ] [ text "Reset Panels" ] 
   ]
 
 asPixels : number -> String

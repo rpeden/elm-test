@@ -32,6 +32,20 @@ var _user$project$Main$ChangeThing = function (a) {
 	return {ctor: 'ChangeThing', _0: a};
 };
 var _user$project$Main$thing = function (model) {
+	var things = A2(
+		_elm_lang$core$List$map,
+		function (n) {
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
+					_1: {ctor: '[]'}
+				});
+		},
+		A2(_elm_lang$core$List$range, 1, 4));
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
@@ -76,20 +90,7 @@ var _user$project$Main$thing = function (model) {
 							_0: _elm_lang$html$Html_Attributes$class('testing'),
 							_1: {ctor: '[]'}
 						},
-						A2(
-							_elm_lang$core$List$map,
-							function (n) {
-								return A2(
-									_elm_lang$html$Html$div,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'I\'m a ', model.thingName)),
-										_1: {ctor: '[]'}
-									});
-							},
-							A2(_elm_lang$core$List$range, 1, 4))),
+						things),
 					_1: {ctor: '[]'}
 				}
 			}

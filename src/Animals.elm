@@ -18,7 +18,7 @@ checkAnimalName animal =
     Cat name age -> 
       "I'm a cat named " ++ name
     Dog name age ->
-      "I'm a dog named " ++ name 
+      "I'm a dog named " ++ name
 
 checkBeingName : Being -> String
 checkBeingName being = 

@@ -407,10 +407,18 @@ var _user$project$ProgOne$setFocus = function (result) {
 		return _user$project$ProgOne$NoOp;
 	}
 };
+var _user$project$ProgOne$blur = function (id) {
+	return A2(
+		_elm_lang$core$Task$attempt,
+		function (_p3) {
+			return _user$project$ProgOne$NoOp;
+		},
+		_elm_lang$dom$Dom$blur(id));
+};
 var _user$project$ProgOne$update = F2(
 	function (msg, model) {
-		var _p3 = msg;
-		switch (_p3.ctor) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
 			case 'Increment':
 				return {
 					ctor: '_Tuple2',
@@ -424,10 +432,7 @@ var _user$project$ProgOne$update = F2(
 								{ctor: '_Tuple0'}),
 							_1: {
 								ctor: '::',
-								_0: A2(
-									_elm_lang$core$Task$attempt,
-									_user$project$ProgOne$setFocus,
-									_elm_lang$dom$Dom$focus('body')),
+								_0: _user$project$ProgOne$blur('incr-button'),
 								_1: {ctor: '[]'}
 							}
 						})
@@ -441,21 +446,29 @@ var _user$project$ProgOne$update = F2(
 					_1: _user$project$Interop$sendDecr(
 						{ctor: '_Tuple0'})
 				};
-			case 'Change':
-				var _p4 = _p3._0;
+			case 'ResetPanels':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{content: _p4}),
-					_1: _user$project$Interop$sendName(_p4)
+						{numberOfPanels: 2}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Change':
+				var _p5 = _p4._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{content: _p5}),
+					_1: _user$project$Interop$sendName(_p5)
 				};
 			case 'ChangeThing':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{thingName: _p3._0}),
+						{thingName: _p4._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'UpdateRadius':
@@ -463,7 +476,7 @@ var _user$project$ProgOne$update = F2(
 					_elm_lang$core$Maybe$withDefault,
 					0,
 					_elm_lang$core$Result$toMaybe(
-						_elm_lang$core$String$toInt(_p3._0)));
+						_elm_lang$core$String$toInt(_p4._0)));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -557,6 +570,7 @@ var _user$project$ProgOne$thing = function (model) {
 var _user$project$ProgOne$Change = function (a) {
 	return {ctor: 'Change', _0: a};
 };
+var _user$project$ProgOne$ResetPanels = {ctor: 'ResetPanels'};
 var _user$project$ProgOne$Decrement = {ctor: 'Decrement'};
 var _user$project$ProgOne$Increment = {ctor: 'Increment'};
 var _user$project$ProgOne$buttonPanel = A2(
@@ -568,8 +582,12 @@ var _user$project$ProgOne$buttonPanel = A2(
 			_user$project$ProgOne$styledButton,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Increment),
-				_1: {ctor: '[]'}
+				_0: _elm_lang$html$Html_Attributes$id('incr-btn'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$Increment),
+					_1: {ctor: '[]'}
+				}
 			},
 			{
 				ctor: '::',
@@ -604,7 +622,22 @@ var _user$project$ProgOne$buttonPanel = A2(
 						_0: _elm_lang$html$Html$text('Add Panel'),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_user$project$ProgOne$styledButton,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(_user$project$ProgOne$ResetPanels),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Reset Panels'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		}
 	});
@@ -768,7 +801,7 @@ var _user$project$ProgOne$view = function (model) {
 												{ctor: '[]'},
 												A2(
 													_elm_lang$core$List$map,
-													function (_p5) {
+													function (_p6) {
 														return normalPanel(
 															{ctor: '[]'});
 													},
